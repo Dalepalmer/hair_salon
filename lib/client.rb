@@ -22,7 +22,32 @@ class Client
     @id = result.first().fetch("id").to_i()
   end
 
+  define_singleton_method(:find) do |search_id|
+    clients = DB.exec("SELECT * from clients;")
+    found_client = nil
+    clients.each() do |client|
+      name = client.fetch("name")
+      id = client.fetch("id").to_i
+      if search_id.eql?(id)
+        found_client = Client.new({:name => name, :id => id})
+      end
+    end
+    found_client
+  end
+
   define_method(:==) do |another_client|
     self.name().eql?(another_client.name()).&(self.id().eql?(another_client.id()))
+  end
+
+  define_method(:stylists) do
+    client_stylists =  []
+    tasks = DB.exec("SELECT * FROM stylists WHERE id = #{self.id()};")
+
+    stylists.each() do |stylist|
+      name = stylist.fetch("name")
+      id = stylist.fetch("id").to_i()
+      client_stylists.push(Stylist.new(:name => name, :id => id))
+    end
+    client_stylists
   end
 end

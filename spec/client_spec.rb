@@ -17,16 +17,26 @@ describe(Client) do
   end
 
   describe("#name") do
-    it("Lists the name of a client inserted into the class") do
+    it("clients the name of a client inserted into the class") do
       test_client = Client.new({:name => "Margaret", :id => nil})
       expect(test_client.name()).to(eq("Margaret"))
     end
   end
   describe("#id") do
-    it("Lists the id of a client inserted into the class") do
+    it("clients the id of a client inserted into the class") do
       test_client = Client.new({:name => "Margaret", :id => nil})
       test_client.save()
       expect(test_client.id()).to(be_an_instance_of(Fixnum))
+    end
+  end
+
+   describe(".find") do
+    it("returns a client by its ID number") do
+      test_client = Client.new({:name => "Matt", :id => nil})
+      test_client.save()
+      test_client2 = Client.new({:name => "Kaleb", :id => nil})
+      test_client2.save()
+      expect(Client.find(test_client2.id())).to(eq(test_client2))
     end
   end
 
