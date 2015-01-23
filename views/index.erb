@@ -1,0 +1,22 @@
+<h1>Stylist and client directory for Dale's Dastardly Do's</h1>
+
+<p>Add a new hire</p>
+
+<form action="/stylist" method="post">
+  <label for="name">What is the name of the new stylist?:</label>
+  <input id="name" name="name" type="text">
+
+  <button type="submit">Add stylist</button>
+</form>
+
+<% if @stylists.any?() %>
+  <p>Click on a stylist to see their list of clients:</p>
+
+  <ul>
+    <% @stylists.each do |stylist| %>
+      <li><a href="/stylists/<%= stylist.id() %>"><%= stylist.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no stylists yet!</p>
+<% end %>
