@@ -1,16 +1,16 @@
-<h1>Add a client to <%= @stylist.name() %> </h1>
+<h1>Add a client to <%= @stylist.name() %>'s client list. </h1>
 
 <form action="/clients" method="post">
   <input id="client_id" name="client_id" type="hidden" value="<%= @stylist.id() %>">
 
-  <label for="name">Description of the client:</label>
+  <label for="name">Name of the client:</label>
   <input id="name" name="name" type="text">
 
   <button type="submit">Add client</button>
 </form>
 
 <% if @stylist.clients().any?() %>
-  <h3>Here are all the clients in this stylist:</h3>
+  <h3>Here are all the clients for this stylist:</h3>
 
   <ul>
     <% @stylist.clients().each() do |client| %>
