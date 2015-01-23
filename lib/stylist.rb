@@ -7,9 +7,22 @@ class Stylist
   end
 
   define_singleton_method(:all) do
-    returned_stylists = DB.exec("SELECT * FROM expenses;")
+    returned_stylists = DB.exec("SELECT * FROM stylists;")
     stylists = []
     returned_stylists.each() do |stylist|
       name = stylist.fetch("name")
-      id = expense.fetch("id").to_i()
+      id = stylist.fetch("id").to_i()
+      stylists.push(Stylist.new({:name => name, :id => id}))
+    end
+    stylists
+  end
+
+  define_method(:save) do
+    result = DB.exec("INSERT INTO stylists (name) VALUES ('#{@name}') RETURNING id;")
+    @id = result.first().fetch("id").to_i()
+  end
+
+  define_method(:==) do |another_stylist|
+    self.name().eql?(another_stylist.name()).&(self.id().eql?(another_stylist.id()))
+  end
 end
