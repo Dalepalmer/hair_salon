@@ -10,13 +10,13 @@
 </form>
 
 <% if @stylists.any?() %>
-  <p>Click on a stylist to see their list of clients:</p>
+<p>Click on a stylist to see their list of clients:</p>
 
-  <ul>
-    <% @stylists.each do |stylist| %>
-      <li><a href="/stylists/<%= stylist.id() %>"><%= stylist.name() %></a></li>
-    <% end %>
-  </ul>
+<ul>
+  <% @stylists.each do |stylist| %>
+  <li><a href="/stylists/<%= stylist.id() %>"><%= stylist.name() %></a></li>
+  <% end %>
+</ul>
 <% else %>
-  <p>There are no stylists yet!</p>
+<p>There are no stylists yet!</p>
 <% end %>

@@ -33,14 +33,14 @@ describe(Stylist) do
   end
 
   describe(".find") do
-   it("returns a client by its ID number") do
-     test_stylist = Stylist.new({:name => "Matt", :id => nil})
-     test_stylist.save()
-     test_stylist2 = Stylist.new({:name => "Kaleb", :id => nil})
-     test_stylist2.save()
-     expect(Stylist.find(test_stylist2.id())).to(eq(test_stylist2))
-   end
- end
+    it("returns a client by its ID number") do
+      test_stylist = Stylist.new({:name => "Matt", :id => nil})
+      test_stylist.save()
+      test_stylist2 = Stylist.new({:name => "Kaleb", :id => nil})
+      test_stylist2.save()
+      expect(Stylist.find(test_stylist2.id())).to(eq(test_stylist2))
+    end
+  end
 
   describe("#clients") do
     it("returns an array of clients for that stylist") do
@@ -51,6 +51,30 @@ describe(Stylist) do
       test_client2 = Client.new(:name => "Mark", :client_id => test_stylist.id())
       test_client2.save()
       expect(test_stylist.clients()).to(eq([test_client, test_client2]))
+    end
+  end
+
+describe("#delete") do
+    it("lets you delete a list from the database") do
+      stylist = Stylist.new({:name => "Brittany", :id => nil})
+      stylist.save()
+      stylist2 = Stylist.new({:name => "Mark", :id => nil})
+      stylist2.save()
+      stylist.delete()
+      expect(Stylist.all()).to(eq([stylist2]))
+    end
+  end
+
+  describe("#delete") do
+    it("deletes a list's clients from the database") do
+      stylist = Stylist.new({:name => "Brenda", :id => nil})
+      stylist.save()
+      client = Client.new({:name => "Frank", :client_id => stylist.id()})
+      client.save()
+      client2 = Client.new({:name => "Bill", :client_id => stylist.id()})
+      client2.save()
+      stylist.delete()
+      expect(Client.all()).to(eq([]))
     end
   end
 

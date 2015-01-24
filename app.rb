@@ -31,6 +31,25 @@ post("/stylist") do
   erb(:index)
 end
 
+delete("/stylists/:id") do
+  @stylist = Stylist.find(params.fetch("id").to_i())
+  @stylist.delete()
+  @stylists = Stylist.all()
+  erb(:index)
+end
+
+get("/stylists/:id/edit") do
+  @stylist = Stylist.find(params.fetch("id").to_i())
+  erb(:stylist_edit)
+end
+
+patch("/stylists/:id") do
+  name = params.fetch("name")
+  @stylist = Stylist.find(params.fetch("id").to_i())
+  @stylist.update({:name => name})
+  erb(:list)
+end
+
 get("/stylists/:id") do
   @stylist = Stylist.find(params.fetch("id").to_i())
   erb(:stylist)
